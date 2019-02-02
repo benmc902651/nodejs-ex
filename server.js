@@ -5,15 +5,18 @@ var express = require('express'),
     
 Object.assign=require('object-assign')
 
-app.engine('html', require('ejs').renderFile);
+app.engine('html');
 app.use(morgan('combined'))
+
+console.log(process.env.CONTEXT_DIR)
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
+    mongoURL = process.e/ nv.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
 
 if (mongoURL == null) {
+
   var mongoHost, mongoPort, mongoDatabase, mongoPassword, mongoUser;
   // If using plane old env vars via service discovery
   if (process.env.DATABASE_SERVICE_NAME) {
@@ -107,6 +110,12 @@ app.get('/pagecount', function (req, res) {
   } else {
     res.send('{ pageCount: -1 }');
   }
+});
+
+app.get('/path', function (req, res) {
+  // try to initialize the db on every request if it's not already
+  // initialized.
+  res.send('{ pageCount: ' + process.env.CONTEXT_DIR + '}');
 });
 
 // error handling
