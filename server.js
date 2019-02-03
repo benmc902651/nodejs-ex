@@ -10,9 +10,8 @@ Object.assign=require('object-assign')
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
 
-app.set('views', path.join(process.env.CONTEXT_DIR, '/views'));
-
-
+app.set('views', path.join(process.env.path, '/views'));
+ 
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
