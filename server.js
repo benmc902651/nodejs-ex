@@ -8,7 +8,7 @@ Object.assign=require('object-assign')
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
 
-// app.set('views', path.join(process.env.CONTEXT_DIR, '/views'));
+app.set('views', path.join(process.env.CONTEXT_DIR, '/views'));
 
 
 
